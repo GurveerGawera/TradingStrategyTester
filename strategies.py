@@ -5,6 +5,9 @@ class TradingStrategy:
     def __init__(self, money: float):
         self.money: float = money # money in dollars
         self.shares: float = 0.000
+    
+    def __str__(self):
+        return self.__class__.__name__
 
     def sell_all(self, share_price: float):
         self.money += self.shares * share_price

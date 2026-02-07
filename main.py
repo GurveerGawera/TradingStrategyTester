@@ -2,7 +2,8 @@ import yfinance as yf
 import mplfinance as mpf
 from trading_loop import trading_loop
 from trading_types import PeriodData
-from strategies import BuyAndHold
+from strategies import BuyAndHold, TradingStrategy
+from typing import List
 
 # Function to get historic data and return in a pandas dataframe
 def get_trading_data(period='1y'):
@@ -11,8 +12,9 @@ def get_trading_data(period='1y'):
     return data
 
 # Plot the data in trades as a candlestick diagram
-def plot_data(trades, balances):
-    extra_plot = mpf.make_addplot(trades['Balance'], color='#606060', panel=2, ylabel='balances', secondary_y=False)
+def plot_data(trades, all_strategies: List[TradingStrategy]):
+    for strategy in all_strategies:
+        extra_plot = mpf.make_addplot(trades[str(strategy)], color='#606060', panel=2, ylabel=f"{str(strategy)}_Balance", secondary_y=False)
     mpf.plot(trades, volume=True, type='candle', tight_layout=True, style='yahoo', addplot=extra_plot)
 
 if __name__ == "__main__":
@@ -23,6 +25,8 @@ if __name__ == "__main__":
 
     trading_data = []
     trading_strategy = BuyAndHold(money=10000)
+
+    all_strategies : List[TradingStrategy] = [trading_strategy]
 
     for trade in trades.iterrows():
         trading_data.append(PeriodData(
@@ -35,4 +39,6 @@ if __name__ == "__main__":
     
     balance = trading_loop(trading_data, trading_strategy)
 
-    trades["Balance"] = balance
+    trades[str(trading_strategy)] = balance
+
+    plot_data(trades, all_strategies)
