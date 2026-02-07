@@ -13,9 +13,10 @@ def get_trading_data(period='1y'):
 
 # Plot the data in trades as a candlestick diagram
 def plot_data(trades, all_strategies: List[TradingStrategy]):
+    extra_plots=[]
     for strategy in all_strategies:
-        extra_plot = mpf.make_addplot(trades[str(strategy)], color='#606060', panel=2, ylabel=f"{str(strategy)}_Balance", secondary_y=False)
-    mpf.plot(trades, volume=True, type='candle', tight_layout=True, style='yahoo', addplot=extra_plot)
+        extra_plots.append(mpf.make_addplot(trades[str(strategy)], panel=1, ylabel=f"{str(strategy)}", secondary_y=False))
+    mpf.plot(trades, type='candle', tight_layout=True, style='yahoo', addplot=extra_plots)
 
 if __name__ == "__main__":
     print("Trading is fun!")
