@@ -9,7 +9,7 @@ class TradingStrategy:
         self.balance: List[float] = []
     
     def __str__(self):
-        return self.__class__.__name__ + "__Money:" + str(self.money)
+        return self.__class__.__name__ + ": $" + str(int(self.money))
 
     def sell_all(self, share_price: float):
         self.money += self.shares * share_price
