@@ -1,4 +1,4 @@
-from .types import State, Operation
+from trading_types import State, Operation
 from typing import Tuple
 from dataclasses import dataclass
 # buy and hold, only sell at end

@@ -1,4 +1,4 @@
-from .types import TradingData
+from trading_types import TradingData
 from strategies import TradingStrategy
 
 def trading_loop(all_data: TradingData, strategy: TradingStrategy):
