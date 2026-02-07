@@ -1,6 +1,5 @@
 import yfinance as yf
 import mplfinance as mpf
-import numpy as np
 from trading_loop import trading_loop
 from trading_types import PeriodData
 from strategies import BuyAndHold
@@ -16,13 +15,6 @@ def plot_data(trades, balances):
     extra_plot = mpf.make_addplot(trades['Balance'], color='#606060', panel=2, ylabel='balances', secondary_y=False)
     mpf.plot(trades, volume=True, type='candle', tight_layout=True, style='yahoo', addplot=extra_plot)
 
-
-# take the historic trade data and wisely invest the initial_investment
-# returns a list (or amended dataframe) that contains the balance for each day during the trading period
-def execute_strategies(trades, initial_investment):
-
-    return trades
-
 if __name__ == "__main__":
     print("Trading is fun!")
 
@@ -30,7 +22,7 @@ if __name__ == "__main__":
     trades = get_trading_data()
 
     trading_data = []
-    trading_strategy = BuyAndHold(money=100)
+    trading_strategy = BuyAndHold(money=10000)
 
     for trade in trades.iterrows():
         trading_data.append(PeriodData(
@@ -43,8 +35,4 @@ if __name__ == "__main__":
     
     balance = trading_loop(trading_data, trading_strategy)
 
-    print("Initial Trading Data: ", trading_data[0].close)
-    print("Final Trading Data: ", trading_data[-1].close)
-
-    print(trading_strategy.money)
-    print(trading_strategy.shares)
+    trades["Balance"] = balance

@@ -8,4 +8,4 @@ def trading_loop(trading_data: List[PeriodData], trading_strategy: TradingStrate
         trading_strategy.strategy(trading_data[0:index])
         balance.append(trading_strategy.balance(trading_data[index].close))
     trading_strategy.sell_all(trading_data[-1].close)
-    return
+    return balance
