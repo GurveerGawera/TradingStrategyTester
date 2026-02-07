@@ -14,11 +14,6 @@ class PeriodData:
 class TradingData:
     data: List[PeriodData]
 
-@dataclass
-class State:
-    data: List[PeriodData]
-    money: int
-
 class Operation(Enum):
     BUY = 0,
     SELL = 1,
