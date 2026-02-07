@@ -1,5 +1,6 @@
 import yfinance as yf
 import pandas_ta_classic as ta
+from trading_loop import trading_loop
 
 def get_trading_data():
     data=yf.Ticker('^GSPC').history(period='1y')
