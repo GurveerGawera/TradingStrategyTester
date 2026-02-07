@@ -1,18 +1,23 @@
-from trading_types import PeriodData, Operation
-from typing import Tuple, List
+from trading_types import PeriodData
+from typing import List
 
 class TradingStrategy:
-    def __init__(self, money: int):
-        self.money = money
+    def __init__(self, money: float):
+        self.money: float = money # money in dollars
+        self.shares: float = 0.000
+
+    def sell_all(self, share_price: float):
+        self.money += self.shares * share_price
         self.shares = 0
+
     def strategy(self):
         raise NotImplementedError("strategy function not implemented!")
 
 class BuyAndHold(TradingStrategy):
-    def __init__(self, money: int):
-        super.__init__(money)
+    def __init__(self, money: float):
+        super().__init__(money)
 
-    def strategy(self, data: List[PeriodData]) -> Tuple[Operation, int]:
+    def strategy(self, data: List[PeriodData]):
         """
         Execute Buy and Hold Strategy
         
@@ -20,5 +25,8 @@ class BuyAndHold(TradingStrategy):
         :return: Tuple containing operation and the amount of money we want to use with the operation.
         """
         if (len(data) == 1): 
-            return (Operation.BUY, self.money)
-        return (Operation.HOLD, 0)
+            # look to buy all we can
+            self.shares = self.money / data[0].close
+            self.money = 0
+            return 
+        return

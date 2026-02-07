@@ -4,15 +4,11 @@ from enum import Enum
 
 @dataclass
 class PeriodData:
-    min: int
-    max: int
-    open: int
-    close: int
+    min: float
+    max: float
+    open: float
+    close: float
     date: str
-
-@dataclass
-class TradingData:
-    data: List[PeriodData]
 
 class Operation(Enum):
     BUY = 0,

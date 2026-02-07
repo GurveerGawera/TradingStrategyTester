@@ -1,8 +1,9 @@
-from trading_types import TradingData
+from trading_types import PeriodData
 from strategies import TradingStrategy
+from typing import List
 
-def trading_loop(all_data: TradingData, strategy: TradingStrategy):
-    for index, period in enumerate(all_data):
-        strategy.strategy(all_data[0:index])
-        print(period)
+def trading_loop(trading_data: List[PeriodData], strategy: TradingStrategy):
+    for index, period in enumerate(trading_data):
+        strategy.strategy(trading_data[0:index])
+    strategy.sell_all(trading_data[-1].close)
     return

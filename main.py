@@ -1,8 +1,9 @@
 import yfinance as yf
-import pandas_ta_classic as ta
-from trading_loop import trading_loop
 import mplfinance as mpf
 import numpy as np
+from trading_loop import trading_loop
+from trading_types import PeriodData
+from strategies import BuyAndHold
 
 # Function to get historic data and return in a pandas dataframe
 def get_trading_data(period='1y'):
@@ -28,8 +29,22 @@ if __name__ == "__main__":
     # get historic data for S&P
     trades = get_trading_data()
 
-    initial_investment = 1000
+    trading_data = []
+    trading_strategy = BuyAndHold(money=100)
 
-    balances = execute_strategies(trades,initial_investment)
+    for trade in trades.iterrows():
+        trading_data.append(PeriodData(
+            min=trade[1]["Low"],
+            max=trade[1]["High"],
+            open=trade[1]["Open"],
+            close=trade[1]["Close"],
+            date=trade[0]
+        ))
+    
+    trading_loop(trading_data, trading_strategy)
 
-    plot_data(trades, balances)
+    print("Initial Trading Data: ", trading_data[0].close)
+    print("Final Trading Data: ", trading_data[-1].close)
+
+    print(trading_strategy.money)
+    print(trading_strategy.shares)
