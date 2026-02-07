@@ -42,10 +42,10 @@ if __name__ == "__main__":
             close=trade[1]["Close"],
             date=trade[0]
         ))
-    for strat in all_strategies:
-        balance = trading_loop(trading_data, strat)
+    
+    trading_loop(trading_data, all_strategies)
 
-        trades[str(strat)] = balance
-        print(str(strat), "$",int(balance[-1]), int(balance[-1]/initial*100),"%")
+    for strat in all_strategies:
+        trades[str(strat)] = strat.balance
 
     plot_data(trades, all_strategies)

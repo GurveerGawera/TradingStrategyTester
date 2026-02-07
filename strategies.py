@@ -6,6 +6,7 @@ class TradingStrategy:
     def __init__(self, money: float):
         self.money: float = money # money in dollars
         self.shares: float = 0.000
+        self.balance: List[float] = []
     
     def __str__(self):
         return self.__class__.__name__
@@ -14,8 +15,9 @@ class TradingStrategy:
         self.money += self.shares * share_price
         self.shares = 0
 
-    def balance(self, share_price: float) -> float:
-        return self.money + (share_price * self.shares)
+    def add_balance(self, share_price: float) -> float:
+        self.balance.append(self.money + (share_price * self.shares))
+        return
 
     def strategy(self):
         raise NotImplementedError("strategy function not implemented!")
