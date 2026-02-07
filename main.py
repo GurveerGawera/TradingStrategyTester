@@ -41,7 +41,7 @@ if __name__ == "__main__":
             date=trade[0]
         ))
     
-    trading_loop(trading_data, trading_strategy)
+    balance = trading_loop(trading_data, trading_strategy)
 
     print("Initial Trading Data: ", trading_data[0].close)
     print("Final Trading Data: ", trading_data[-1].close)

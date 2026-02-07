@@ -10,6 +10,9 @@ class TradingStrategy:
         self.money += self.shares * share_price
         self.shares = 0
 
+    def balance(self, share_price: float) -> float:
+        return self.money + (share_price * self.shares)
+
     def strategy(self):
         raise NotImplementedError("strategy function not implemented!")
 
