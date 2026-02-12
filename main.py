@@ -2,7 +2,7 @@ import yfinance as yf
 import mplfinance as mpf
 from trading_loop import trading_loop
 from trading_types import PeriodData
-from strategies import BuyAndHold, TradingStrategy, CoinToss
+from strategies import BuyAndHold, TradingStrategy, CoinToss, SMA
 from typing import List
 from matplotlib.ticker import MultipleLocator
 
@@ -30,9 +30,10 @@ if __name__ == "__main__":
     trading_data = []
     initial=10000
     trading_strategy = BuyAndHold(money=initial)
-    rand_strat = CoinToss(money=initial)
+    # rand_strat = CoinToss(money=initial)
+    sma_strategy = SMA(money=initial, short_sma=20, long_sma=50)
 
-    all_strategies : List[TradingStrategy] = [trading_strategy, rand_strat]
+    all_strategies : List[TradingStrategy] = [trading_strategy, sma_strategy]
 
     for trade in trades.iterrows():
         trading_data.append(PeriodData(
